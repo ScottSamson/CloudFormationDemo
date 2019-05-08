@@ -1,0 +1,85 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Demo stack that performs 'Hello World' with a Lambda and S3.",
+  "Parameters": {},
+  "Resources": {
+    "HelloWorldLambda": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "DemoAppHelloWorld",
+        "Handler": "HelloWorld::HelloWorld.Function::FunctionHandler",
+        "Role": {
+          "Fn::GetAtt": [
+						"LambdaRole",
+						"Arn"
+					]
+        },
+        "Code": {
+          "S3Bucket": "demo-app-deploymentbucket",
+          "S3Key": "HelloWorldLambda.zip"
+        },
+        "Runtime": "dotnetcore2.1",
+        "Timeout": "300",
+        "Environment": {
+          "Variables": {
+            "UNWRAP_AGGREGATE_EXCEPTIONS": "1"
+          }
+        },
+        "Tags": [
+          {
+            "Key": "Project",
+            "Value": "DemoApp"
+          }
+        ]
+      }
+    },
+    "DemoFileBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "demo-app-file-bucket",
+        "Tags": [
+          {
+            "Key": "Project",
+            "Value": "DemoApp"
+          }
+        ]
+      }
+    },
+    "LambdaRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+				"RoleName": "LambdaExecutionRole",
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Principal": {
+								"Service": "lambda.amazonaws.com"
+							},
+							"Action": "sts:AssumeRole"
+						}
+					]
+				},
+        "Policies": [
+          {
+						"PolicyName": "FileBucketAccess",
+						"PolicyDocument": {
+							"Version": "2012-10-17",
+							"Statement": {
+								"Sid": "BucketReadAccess",
+								"Action": [
+									"s3:GetObject"
+								],
+								"Effect": "Allow",
+								"Resource": [
+									"arn:aws:s3:::demo-app-file-bucket/*"
+								]
+							}
+						}
+					}
+        ]
+      }
+    }
+  }
+}

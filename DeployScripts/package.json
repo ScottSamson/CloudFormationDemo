@@ -1,0 +1,16 @@
+{
+  "name": "deployscripts",
+  "version": "1.0.0",
+  "description": "deploy scripts for demo project",
+  "main": "deployScript.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.2",
+    "aws-sdk": "^2.451.0",
+    "commander": "^2.20.0"
+  }
+}
