@@ -22,8 +22,12 @@
         "Timeout": "300",
         "Environment": {
           "Variables": {
-            "UNWRAP_AGGREGATE_EXCEPTIONS": "1"
-          }
+            "UNWRAP_AGGREGATE_EXCEPTIONS": "1",
+            "bucketName": {
+              "Ref": "DemoFileBucket"
+            }
+          },
+          "uppercase": "true"
         },
         "Tags": [
           {
