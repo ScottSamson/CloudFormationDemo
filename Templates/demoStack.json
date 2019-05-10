@@ -22,11 +22,7 @@
         "Timeout": "300",
         "Environment": {
           "Variables": {
-            "UNWRAP_AGGREGATE_EXCEPTIONS": "1",
-            "bucketName": {
-              "Ref": "DemoFileBucket"
-            },
-            "uppercase": "true"
+            "UNWRAP_AGGREGATE_EXCEPTIONS": "1"
           }
         },
         "Tags": [
@@ -77,7 +73,7 @@
 								],
 								"Effect": "Allow",
 								"Resource": [
-									"arn:aws:s3:::demo-app-file-bucket/uppercase.txt"
+									"arn:aws:s3:::demo-app-file-bucket/*"
 								]
 							}
 						}
