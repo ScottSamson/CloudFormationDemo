@@ -1,0 +1,16 @@
+{
+  "Resources": {
+    "DemoDeploymentBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "demo-app-deploymentbucket",
+        "Tags": [
+          {
+            "Key": "Project",
+            "Value": "DemoApp"
+          }
+        ]
+      }
+    }
+  }
+}
